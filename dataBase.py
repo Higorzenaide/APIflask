@@ -49,16 +49,11 @@ class BancoDeDados:
 
     def visualizarAgendamentos(self, data):
         try:
-            response = self.client.table('sala_de_reuniao').select({
-                "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
-            }).eq('data_agendamento', data).execute()
-            print('Passou01')
+            response, data = self.client.table('sala_de_reuniao').select('data_agendamento', 'hora_inicio', 'hora_fim', 'Gestor', 'created_at').eq('data_agendamento', data).execute()
+            # Converter a resposta para um DataFrame do pandas
             response_string = response[1]
-            print('Passou02')
             resposta = json.loads(json.dumps(response_string))
-            print('Passou03')
             return resposta
-        
         except Exception as e:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
