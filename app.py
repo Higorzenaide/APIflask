@@ -31,7 +31,7 @@ def efetuarCadastro():
 def visualizarAgendamentosDoDia(data):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.visualizarAgendamentos(data)
-    return jsonify(retorno)
+    return retorno
 
 
 if __name__ == '__main__':

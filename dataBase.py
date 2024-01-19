@@ -51,22 +51,15 @@ class BancoDeDados:
     def visualizarAgendamentos(self, data):
         try:
             # Converta a string de data para o formato esperado pelo seu banco de dados
-            data_formatada = datetime.strptime(data, "%Y-%m-%d").date()
+            data_formatada = datetime.strptime(data,"%Y-%m-%d").date()
 
             response, count = self.client.table('sala_de_reuniao').select({
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
             }).eq('data_agendamento', data_formatada).execute()
-
-            # Extraia a lista de registros da resposta
-            registros = response.get("data", [])
-
-            # Processar registros, se houver
-            resposta = [{"data_agendamento": registro.get("data_agendamento", ""),
-                         "hora_inicio": registro.get("hora_inicio", ""),
-                         "hora_fim": registro.get("hora_fim", ""),
-                         "Gestor": registro.get("Gestor", "")} for registro in registros]
-
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
             return resposta
+        
         except Exception as e:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
