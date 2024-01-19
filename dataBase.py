@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 from supabase import create_client
-from dataBase import create_client
+
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -20,14 +20,3 @@ class BancoDeDados:
         response_string = response[1]
         resposta = json.loads(json.dumps(response_string))
         return resposta
-
-app = Flask(__name__)
-
-@app.route('/consultar/<id>', methods=['GET', 'POST'])
-def hello(id):
-    instanciar_teste = BancoDeDados()
-    retorno = instanciar_teste.visualizarDados(id)
-    return jsonify(retorno)
-
-if __name__ == '__main__':
-    app.run(debug=True)
