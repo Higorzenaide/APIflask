@@ -14,7 +14,7 @@ class BancoDeDados:
   def __init__(self):
       self.client = create_client(DATABASE_URL, API_KEY)
       
-  def visualizarDados(self):
+  def visualizarDados(self,id):
         response, data = self.client.table('feedbacks').select('motivo_macro', 'motivo', 'Nome_colaborador', 'date').eq('id_gestor', id).execute()
         response_string = response[1]
         resposta = json.loads(json.dumps(response_string))
@@ -22,10 +22,10 @@ class BancoDeDados:
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/consultar/<id>')
 def hello():
     instanciar_teste = BancoDeDados()
-    instanciar_teste.visualizarDados()
+    instanciar_teste.visualizarDados(id)
     return instanciar_teste.visualizarDados()
 
 if __name__ == '__main__':
