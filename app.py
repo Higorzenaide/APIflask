@@ -11,7 +11,7 @@ def consultar(senha, email):
     retorno = instanciar_teste.VerificaLogin(senha, email)
     return jsonify(retorno)
 
-@app.route('/FazerCadastro/Nome=<nome>/email=<email>/matricula=<matricula>/senha=<senha>', methods=['POST'])
+@app.route('/FazerCadastro/<nome>/<email>/<int: matricula>/<senha>', methods=['POST'])
 def efetuarCadastro(nome,email,matricula,senha):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.cadastrar(nome,email,matricula,senha)
