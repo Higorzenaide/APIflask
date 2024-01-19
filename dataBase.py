@@ -16,7 +16,7 @@ class BancoDeDados:
       
     def VerificaLogin(self, senha, email):
         try:
-            response, data = self.client.table('users').select('id', 'Gestor', 'email', 'verificado', 'supervisao', 'treinamentos').eq('senha', senha, 'email', email).execute()
+            response, data = self.client.table('users').select('id', 'Gestor', 'email', 'verificado', 'supervisao', 'treinamentos').eq('senha', senha).eq('email', email).execute()
             
             # Verifique se a operação foi bem-sucedida antes de prosseguir
             if response.status_code == 200:
