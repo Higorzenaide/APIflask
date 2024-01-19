@@ -5,8 +5,6 @@ app = Flask(__name__)
 
 @app.route('/ConsultarLogin/<senha>/<email>', methods=['GET'])
 def consultar(senha, email):
-    # Suponho que você tenha uma função VerificaLogin no seu BancoDeDados
-    # Certifique-se de que a classe BancoDeDados e a função VerificaLogin estejam corretamente definidas
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.VerificaLogin(senha, email)
     return jsonify(retorno)
@@ -15,7 +13,7 @@ def consultar(senha, email):
 def efetuarCadastro(nome,email,matricula,senha):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.cadastrar(nome,email,matricula,senha)
-    return retorno
+    return jsonify({"status": "Cadastro efetuado com sucesso"})
 
 if __name__ == '__main__':
     app.run(debug=True)
