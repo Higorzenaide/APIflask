@@ -22,7 +22,8 @@ class BancoDeDados:
             if response.status_code == 200:
                 response_string = response[1]
                 resposta = json.loads(json.dumps(response_string))
-                return {"success": True, "data": resposta}
+                sucesso = True
+                return {sucesso, resposta}
             else:
                 return {"success": False, "error": "Falha na consulta ao banco de dados"}
         except Exception as e:
