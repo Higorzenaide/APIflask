@@ -42,8 +42,15 @@ class BancoDeDados:
                 return {"error": "Erro durante o cadastro"}
 
         except Exception as e:
-            print(f"Erro durante o cadastro: {str(e)}")
-            return {"error": "Erro durante o cadastro"}, 400
+            error_message = str(e)
+
+            # Verifica se a mensagem de erro indica uma violação de chave única
+            if 'duplicate key value violates unique constraint "users_email_key"' in error_message:
+                return {"error": "E-mail já cadastrado. Por favor, use outro e-mail."}, 400
+            else:
+                print(f"Erro durante o cadastro: {error_message}")
+                return {"error": "Erro durante o cadastro"}, 400
+
 
         
         
