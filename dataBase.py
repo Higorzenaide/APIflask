@@ -14,7 +14,6 @@ DATABASE_URL = os.getenv("OUTRA_VARIAVEL")
 class BancoDeDados:
     def __init__(self):
         self.client = create_client(DATABASE_URL, API_KEY)
-      
     def VerificaLogin(self,senha,email):
         try:
             response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha).eq('email',email).execute()
@@ -50,22 +49,11 @@ class BancoDeDados:
 
     def visualizarAgendamentos(self, data):
         try:
-            # Converta a string de data para o formato esperado pelo seu banco de dados
-            data_formatada = datetime.strptime(data, "%Y-%m-%d").date()
-
             response = self.client.table('sala_de_reuniao').select({
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
-            }).eq('data_agendamento', data_formatada).execute()
-
-            # Verifique se a resposta contém dados antes de processar
-            registros = response.get("data", [])
-
-            # Processar registros, se houver
-            resposta = [{"data_agendamento": registro["data_agendamento"],
-                         "hora_inicio": registro["hora_inicio"],
-                         "hora_fim": registro["hora_fim"],
-                         "Gestor": registro["Gestor"]} for registro in registros]
-
+            }).eq('data_agendamento', data).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
             return resposta
         
         except Exception as e:

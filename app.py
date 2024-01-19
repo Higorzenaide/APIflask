@@ -1,5 +1,6 @@
 from flask import Flask,jsonify,request
 from dataBase import BancoDeDados  # Certifique-se de que esta importação está correta
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -29,8 +30,9 @@ def efetuarCadastro():
 
 @app.route('/VisualizarAgendamentos/<data>', methods=['GET'])
 def visualizarAgendamentosDoDia(data):
+    data_formatada = datetime.strptime(data, "%Y-%m-%d")
     instanciar_teste = BancoDeDados()
-    retorno = instanciar_teste.visualizarAgendamentos(data)
+    retorno = instanciar_teste.visualizarAgendamentos(data_formatada)
     return jsonify(retorno)
 
 
