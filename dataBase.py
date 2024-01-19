@@ -52,8 +52,11 @@ class BancoDeDados:
             response = self.client.table('sala_de_reuniao').select({
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
             }).eq('data_agendamento', data).execute()
+            print('Passou01')
             response_string = response[1]
+            print('Passou02')
             resposta = json.loads(json.dumps(response_string))
+            print('Passou03')
             return resposta
         
         except Exception as e:
