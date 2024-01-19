@@ -3,7 +3,7 @@ from dataBase import BancoDeDados  # Certifique-se de que esta importação est�
 
 app = Flask(__name__)
 
-@app.route('/consultar/<senha>/<email>', methods=['GET'])
+@app.route('/ConsultarLogin/<senha>/<email>', methods=['GET'])
 def consultar(senha, email):
     # Suponho que você tenha uma função VerificaLogin no seu BancoDeDados
     # Certifique-se de que a classe BancoDeDados e a função VerificaLogin estejam corretamente definidas
