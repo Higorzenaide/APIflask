@@ -42,7 +42,7 @@ class BancoDeDados:
                 return {"error": "Erro durante o cadastro"}
 
         except Exception as e:
-            app.logger.error(f"Erro durante o cadastro: {str(e)}")
+            print(f"Erro durante o cadastro: {str(e)}")
             return {"error": "Erro durante o cadastro"}, 400
 
         
