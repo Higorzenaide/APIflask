@@ -35,21 +35,24 @@ class BancoDeDados:
                 "treinamentos": False
             }).execute()
 
-            # Verifica se a inserção foi bem-sucedida
-            if count > 0:
-                return {"status": "Cadastro efetuado com sucesso"}
-            else:
-                return {"error": "Erro durante o cadastro"}
-
+            try:
+                if response.status == 200:
+                    return {"sucess": "Deu certo no response"}, 200
+            except:
+                try:
+                    if count.status == 200:
+                        return {"sucess": "Deu certo no count"}, 200
+                except:
+                    pass
         except Exception as e:
             error_message = str(e)
 
-            # Verifica se a mensagem de erro indica uma violação de chave única
+                    # Verifica se a mensagem de erro indica uma violação de chave única
             if 'duplicate key value violates unique constraint "users_email_key"' in error_message:
-                return {"error": "E-mail já cadastrado. Por favor, use outro e-mail."}, 400
+                        return {"error": "E-mail já cadastrado. Por favor, use outro e-mail."}, 400
             else:
-                print(f"Erro durante o cadastro: {error_message}")
-                return {"error": "Erro durante o cadastro"}, 400
+                        print(f"Erro durante o cadastro: {error_message}")
+                        return {"error": "Erro durante o cadastro"}, 400
 
 
         
