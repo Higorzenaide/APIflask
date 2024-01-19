@@ -1,27 +1,32 @@
 from flask import Flask
 from dotenv import load_dotenv
 import os
-
-class Teste:
-    def __init__(self) -> None:
-        pass
-
-    def testeHello(self):
-        return 'helloWorld'
+import json
+from supabase import create_client
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
-api_key = os.getenv("API_KEY")
-outra_variavel = os.getenv("OUTRA_VARIAVEL")
+API_KEY = os.getenv("API_KEY")
+DATABASE_URL = os.getenv("OUTRA_VARIAVEL")
+
+class BancoDeDados:
+  def __init__(self):
+      self.client = create_client(DATABASE_URL, API_KEY)
+      
+  def visualizarDados(self):
+        response, data = self.client.table('feedbacks').select('motivo_macro', 'motivo', 'Nome_colaborador', 'date').eq('id_gestor', id).execute()
+        response_string = response[1]
+        resposta = json.loads(json.dumps(response_string))
+        return resposta
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    instanciar_teste = Teste()
-    retorno = instanciar_teste.testeHello()
-    return retorno
+    instanciar_teste = BancoDeDados()
+    instanciar_teste.visualizarDados()
+    return instanciar_teste.visualizarDados()
 
 if __name__ == '__main__':
     app.run(debug=True)
