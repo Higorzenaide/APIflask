@@ -22,7 +22,7 @@ class BancoDeDados:
 
 app = Flask(__name__)
 
-@app.route('/consultar/<int:id>', methods=['GET', 'POST'])
+@app.route('/consultar/<id>', methods=['GET', 'POST'])
 def hello(id):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.visualizarDados(id)
