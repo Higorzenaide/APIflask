@@ -53,6 +53,8 @@ class BancoDeDados:
             # Converter a resposta para um DataFrame do pandas
             response_string = response[1]
             resposta = json.loads(json.dumps(response_string))
+            if resposta == []:
+                 return {"error": f'Não há agendamentos para está data:'}
             return resposta
         except Exception as e:
             error = str(e)
