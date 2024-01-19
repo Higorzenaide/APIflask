@@ -60,4 +60,5 @@ class BancoDeDados:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
             
-        
+    def efetuarAgendamento(self,data,horaInicio,horaFim):
+         pass

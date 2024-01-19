@@ -9,12 +9,9 @@ def consultar():
     data = request.json
     email = data.get("email")
     senha = data.get("senha")
-
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.VerificaLogin(senha, email)
     return jsonify(retorno)
-
-
 
 @app.route('/FazerCadastro', methods=['POST'])
 def efetuarCadastro():
@@ -23,7 +20,6 @@ def efetuarCadastro():
     email = data.get("email")
     matricula = data.get("matricula")
     senha = data.get("senha")
-
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.cadastrar(nome, email, matricula, senha)
     return jsonify(retorno)
@@ -35,6 +31,15 @@ def visualizarAgendamentosDoDia(data):
     retorno = instanciar_teste.visualizarAgendamentos(data_formatada)
     return jsonify(retorno)
 
+@app.route('/fazerAgendamento',methods = ['POST'])
+def fazerAgendamento():
+    data = request.json
+    dataAgendamento = data.get("data_agendamento")
+    horaInicio = data.get("hora_inicio")
+    horaFim = data.get("hora_fim")
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.efetuarAgendamento(dataAgendamento,horaInicio,horaFim)
+    return jsonify(retorno)
 
 if __name__ == '__main__':
     app.run(debug=True)
