@@ -15,7 +15,7 @@ def consultar(senha, email):
 def efetuarCadastro(nome,email,matricula,senha):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.cadastrar(nome,email,matricula,senha)
-    return jsonify(retorno)
+    return retorno
 
 if __name__ == '__main__':
     app.run(debug=True)
