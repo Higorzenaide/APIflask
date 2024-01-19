@@ -57,7 +57,15 @@ class BancoDeDados:
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
             }).eq('data_agendamento', data_formatada).execute()
 
-            resposta = response.json()
+            # Extraia a lista de registros da resposta
+            registros = response.get("data", [])
+
+            # Processar registros, se houver
+            resposta = [{"data_agendamento": registro.get("data_agendamento", ""),
+                         "hora_inicio": registro.get("hora_inicio", ""),
+                         "hora_fim": registro.get("hora_fim", ""),
+                         "Gestor": registro.get("Gestor", "")} for registro in registros]
+
             return resposta
         except Exception as e:
             error = str(e)
