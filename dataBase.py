@@ -15,8 +15,13 @@ class BancoDeDados:
     def __init__(self):
         self.client = create_client(DATABASE_URL, API_KEY)
       
-    def visualizarDados(self, id):
-        response, data = self.client.table('feedbacks').select('motivo_macro', 'motivo', 'Nome_colaborador', 'date').eq('id_gestor', id).execute()
-        response_string = response[1]
-        resposta = json.loads(json.dumps(response_string))
-        return resposta
+    def VerificaLogin(self, senha,email):
+        try:
+            response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha,'email',email).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            return resposta
+        except Exception as e:
+            return e
+        
+        
