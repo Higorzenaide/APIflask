@@ -51,7 +51,7 @@ class BancoDeDados:
     def visualizarAgendamentos(self, data):
         try:
             # Converta a string de data para o formato esperado pelo seu banco de dados
-            data_formatada = datetime.strptime(data,"%Y-%m-%d").date()
+            data_formatada = datetime.strptime(data,"%Y-%m-%d")
 
             response, count = self.client.table('sala_de_reuniao').select({
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
