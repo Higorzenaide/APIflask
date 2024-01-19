@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 from supabase import create_client
+from datetime import datetime
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -47,16 +48,20 @@ class BancoDeDados:
                         print(f"Erro durante o cadastro: {error_message}")
                         return {"error": "Erro durante o cadastro"}, 400
 
-    def visualizarAgendamentos(self,data):
+    def visualizarAgendamentos(self, data):
         try:
+            # Converta a string de data para o formato esperado pelo seu banco de dados
+            data_formatada = datetime.strptime(data, "%Y-%m-%d").date()
+
             response, count = self.client.table('sala_de_reuniao').select({
-                "data_agendamento","hora_inicio","hora_fim","Gestor"
-            }).eq('data_agendamento',data).execute()
+                "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
+            }).eq('data_agendamento', data_formatada).execute()
+
             response_string = response[1]
             resposta = json.loads(json.dumps(response_string))
             return resposta
         except Exception as e:
-            error = e
-            return{f'Ocorreu algum erro: {error}'}
-        
+            error = str(e)
+            return {"error": f'Ocorreu algum erro: {error}'}
+            
         
