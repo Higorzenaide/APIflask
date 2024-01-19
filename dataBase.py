@@ -57,8 +57,7 @@ class BancoDeDados:
                 "data_agendamento", "hora_inicio", "hora_fim", "Gestor"
             }).eq('data_agendamento', data_formatada).execute()
 
-            response_string = response[1]
-            resposta = json.loads(json.dumps(response_string))
+            resposta = response.json()
             return resposta
         except Exception as e:
             error = str(e)
