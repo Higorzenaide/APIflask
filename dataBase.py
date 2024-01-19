@@ -23,11 +23,27 @@ class BancoDeDados:
         except Exception as e:
             return e
     
-    def cadastrar(self,nome,email,matricula,senha):
+    def cadastrar(self, nome, email, matricula, senha):
         try:
-            response,count = self.client.table('users').insert({"Gestor":nome,"matricula":matricula,"senha":senha,"email":email,"verificado":False,"supervisao":False,"treinamentos":False}).execute()
-            return True
+            response, count = self.client.table('users').insert({
+                "Gestor": nome,
+                "matricula": matricula,
+                "senha": senha,
+                "email": email,
+                "verificado": False,
+                "supervisao": False,
+                "treinamentos": False
+            }).execute()
+
+            # Verifica se a inserção foi bem-sucedida
+            if count > 0:
+                return {"status": "Cadastro efetuado com sucesso"}
+            else:
+                return {"error": "Erro durante o cadastro"}
+
         except Exception as e:
-            return e
+            app.logger.error(f"Erro durante o cadastro: {str(e)}")
+            return {"error": "Erro durante o cadastro"}, 400
+
         
         
