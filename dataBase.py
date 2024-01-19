@@ -49,7 +49,7 @@ class BancoDeDados:
 
     def visualizarAgendamentos(self,data):
         try:
-            response, count = self.client.table('users').select({
+            response, count = self.client.table('sala_de_reuniao').select({
                 "data_agendamento","hora_inicio","hora_fim","Gestor"
             }).eq('data_agendamento',data).execute()
             response_string = response[1]
