@@ -19,6 +19,9 @@ class BancoDeDados:
             response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha).eq('email',email).execute()
             response_string = response[1]
             resposta = json.loads(json.dumps(response_string))
+
+            if resposta == []:
+                return {"error": "E-mail ou senha invalidos"}, 400
             return resposta
         except Exception as e:
             return e
@@ -44,6 +47,16 @@ class BancoDeDados:
                         print(f"Erro durante o cadastro: {error_message}")
                         return {"error": "Erro durante o cadastro"}, 400
 
-
+    def visualizarAgendamentos(self,data):
+        try:
+            response, count = self.client.table('users').select({
+                "data_agendamento","hora_inicio","hora_fim","Gestor"
+            }).eq('data_agendamento',data).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            return resposta
+        except Exception as e:
+            error = e
+            return{f'Ocorreu algum erro: {error}'}
         
         
