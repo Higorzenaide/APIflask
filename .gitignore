@@ -1,6 +1,3 @@
 /venv
 .vercel
 .env
-/.env
-env
-..env
