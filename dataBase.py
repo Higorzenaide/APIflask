@@ -22,5 +22,12 @@ class BancoDeDados:
             return resposta
         except Exception as e:
             return e
+    
+    def cadastrar(self,nome,email,matricula,senha):
+        try:
+            data,count = self.client.table('users').insert({"Gestor":nome,"matricula":matricula,"senha":senha,"email":email,"verificado":False,"supervisao":False,"treinamentos":False}).execute()
+            return 'Cadastro efetuado com sucesso'
+        except Exception as e:
+            return e
         
         
