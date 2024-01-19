@@ -14,19 +14,13 @@ class BancoDeDados:
     def __init__(self):
         self.client = create_client(DATABASE_URL, API_KEY)
       
-    def VerificaLogin(self, senha, email):
+    def VerificaLogin(self,senha,email):
         try:
-            response, data = self.client.table('users').select('id', 'Gestor', 'email', 'verificado', 'supervisao', 'treinamentos').eq('senha', senha).eq('email', email).execute()
-            
-            # Verifique se a operação foi bem-sucedida antes de prosseguir
-            if response.status_code == 200:
-                response_string = response[1]
-                resposta = json.loads(json.dumps(response_string))
-                sucesso = True
-                return {sucesso, resposta}
-            else:
-                return {"success": False, "error": "Falha na consulta ao banco de dados"}
+            response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha).eq('email',email).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            return resposta
         except Exception as e:
-            return {"success": False, "error": str(e)}
+            return e
         
         
