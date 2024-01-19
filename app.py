@@ -27,11 +27,12 @@ def efetuarCadastro():
     retorno = instanciar_teste.cadastrar(nome, email, matricula, senha)
     return jsonify(retorno)
 
-@app.route('/VisualizarAgendamentos/<data>',methods=['GET'])
+@app.route('/VisualizarAgendamentos/<data>', methods=['GET'])
 def visualizarAgendamentosDoDia(data):
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.visualizarAgendamentos(data)
-    return retorno
+    return jsonify(retorno)
+
 
 
 if __name__ == '__main__':
