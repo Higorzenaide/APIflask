@@ -18,11 +18,10 @@ class BancoDeDados:
         try:
             response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha).eq('email',email).execute()
             response_string = response[1]
-            resposta = json.loads(json.dumps(response_string))
-
-            if resposta == []:
+            
+            if response_string == []:
                 return {"error": "E-mail ou senha invalidos"}, 400
-            return resposta
+            return response_string
         except Exception as e:
             return e
     
