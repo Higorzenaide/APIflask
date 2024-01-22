@@ -1,7 +1,7 @@
 from flask import Flask,jsonify,request
 from dataBase import BancoDeDados  # Certifique-se de que esta importação está correta
 from datetime import datetime
-
+from funcoes import hello
 app = Flask(__name__)
 
 @app.route('/ConsultarLogin', methods=['GET'])
@@ -11,6 +11,7 @@ def consultar():
     senha = data.get("senha")
     instanciar_teste = BancoDeDados()
     retorno = instanciar_teste.VerificaLogin(senha, email)
+    hello()
     return jsonify(retorno)
 
 @app.route('/FazerCadastro', methods=['POST'])
@@ -31,7 +32,7 @@ def visualizarAgendamentosDoDia(data):
     retorno = instanciar_teste.visualizarAgendamentos(data_formatada)
     return jsonify(retorno)
 
-@app.route('/fazerAgendamento',methods = ['POST'])
+@app.route('/FazerAgendamento',methods = ['POST'])
 def fazerAgendamento():
     data = request.json
     dataAgendamento = data.get("data_agendamento")

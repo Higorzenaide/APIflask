@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 import json
 from supabase import create_client
-from datetime import datetime
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -18,12 +17,12 @@ class BancoDeDados:
         try:
             response, data = self.client.table('users').select('id','Gestor','email','verificado','supervisao','treinamentos').eq('senha',senha).eq('email',email).execute()
             response_string = response[1]
-            
             if response_string == []:
                 return {"error": "E-mail ou senha invalidos"}, 400
             return response_string
         except Exception as e:
-            return e
+            error_msg = str(e)
+            return {'Ocorreu um erro inesperado, tente novamente, ou contate os administradores.', error_msg},500
     
     def cadastrar(self, nome, email, matricula, senha):
         try:
