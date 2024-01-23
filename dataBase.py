@@ -109,7 +109,7 @@ class BancoDeDados:
                             "hora_fim": horaFim,
                             "id_gestor": id,
                             "Gestor": gestor
-                        }).eq("id_gestor",id).execute()
+                        }).eq("id",id).execute()
             except Exception as e:
                 error = e
                 return {
