@@ -71,7 +71,7 @@ class BancoDeDados:
         retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
 
         if retornoFuncao == True:
-            return {"sucess": "Agendado com sucesso"}, 200
+            return {"sucess": "Agendado com sucesso!"}, 200
         else:
             return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],
