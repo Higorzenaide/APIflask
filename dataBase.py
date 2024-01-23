@@ -162,4 +162,6 @@ class BancoDeDados:
                                                                             "coordenacao":coordenacao,"id_gestor":id_gestor
                                                                         }).execute()
         except Exception as e:
-            return False
+            error = str(e)
+            print(f'Erro {error}')
+            return jsonify({"error": f"Erro no banco de dados: {str(e)}"}), 500
