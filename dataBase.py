@@ -73,6 +73,6 @@ class BancoDeDados:
         if retornoFuncao == True:
             return {"sucess": "Agendado com sucesso"}, 200
         else:
-            return {"error": "Conflitos de horários",
+            return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],
                     "horario_fim": retornoFuncao["horario_fim"]},400
