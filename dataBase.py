@@ -89,15 +89,18 @@ class BancoDeDados:
                     "horario_fim": retornoFuncao["horario_fim"]},400
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
-        novoAgendamentoEditado = {
-             "data_agendamento":dataAgendamento,
-             "hora_inicio":horaInicio,
-             "hora_fim":horaInicio,
-             "id": id,
-             "Gestor":gestor
-        }
         retornoClasse = self.visualizarAgendamentos(dataAgendamento)
+        
+        novoAgendamentoEditado = {
+                                    "data_agendamento":[dataAgendamento],
+                                    "hora_inicio":[horaInicio],
+                                    "hora_fim":[horaInicio],
+                                    "id": [id],
+                                    "Gestor":[gestor]
+                                }
+        
         retornoFuncao = verificarConflitos(retornoClasse,novoAgendamentoEditado)
+
         if retornoFuncao == True:
             try:
                 data, count = self.client.table('sala_de_reuniao').update({

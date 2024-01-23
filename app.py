@@ -42,7 +42,6 @@ def fazerAgendamento():
     retorno = instanciarBanco.efetuarAgendamento(dataAgendamento,horaInicio,horaFim,id,gestor)
     return jsonify(retorno)
 
-
 @app.route('/EditarAgendamento',methods = ['POST'])
 def editarAgendamento():
     data = request.json
