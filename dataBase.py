@@ -69,8 +69,8 @@ class BancoDeDados:
                  "Gestor":[gestor]}
         
         retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
-        
+
         if retornoFuncao:
-            return {"Agendado com sucesso"}
+            return {"sucess": "Agendado com sucesso"}, 200
         else:
-            return {"Conflito de horarios"}
+            return {"error": "Conflitos de horários"},400
