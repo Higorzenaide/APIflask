@@ -1,9 +1,9 @@
 import pandas as pd
 
 def verificarConflitos(df01,df02):
-    id_gestor = df02["id"]
-    nova_hora_inicio = df02["hora_inicio"]
-    nova_hora_fim = df02["hora_fim"]
+    id_gestor = df02["id"][0]
+    nova_hora_inicio = df02["hora_inicio"][0]
+    nova_hora_fim = df02["hora_fim"][0]
     df = pd.DataFrame(df01)
     
     df_filtrado = df.loc[df["id_gestor"] != id_gestor]
