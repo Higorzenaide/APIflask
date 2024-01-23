@@ -104,7 +104,7 @@ class BancoDeDados:
         if retornoFuncao == True:
             try:
                 data, count = self.client.table('sala_de_reuniao').update({
-                            "data_agendamento": data,
+                            "data_agendamento": dataAgendamento,
                             "hora_inicio": horaInicio,
                             "hora_fim": horaFim,
                         }).eq("id",id).execute()
