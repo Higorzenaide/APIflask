@@ -101,7 +101,7 @@ def cadastrarColaborador():
     
     instanciarBanco = BancoDeDados()
     retorno = instanciarBanco.cadastrarColaborador(dados)
-    return retorno
+    return jsonify(retorno)
 
 if __name__ == '__main__':
     app.run(debug=True)
