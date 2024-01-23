@@ -126,3 +126,15 @@ class BancoDeDados:
         except Exception as e:
              return {"error": "ocorreu algum erro inesperado"},400
         return {"sucess": "Agendamento excluido com sucesso"},200
+    
+    def visualizarParaEditar(self,data,id):
+        try:
+            response,count = self.client.table('sala_de_reuniao').select('data_agendamento', 'hora_inicio', 'hora_fim', 'Gestor','id').eq('id_gestor',id).eq("data_agendamento",data).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            if resposta == []:
+                 return {"error": f'Não há agendamentos para está data:'}
+            return resposta
+        except Exception as e:
+            error = str(e)
+            return {"error": f'Ocorreu algum erro: {error}'}

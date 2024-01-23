@@ -62,5 +62,14 @@ def excluirAgendamento():
     retorno = instanciaBanco.excluirAgendamento(id)
     return jsonify(retorno)
 
+@app.route('/VisualizarParaEditar',methods = ['POST'])
+def VisualizarParaEditar():
+    data = request.json
+    id = data.get("id")
+    data = data.get("data_agendamento")
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.visualizarParaEditar(data,id)
+    return jsonify(retorno)
+
 if __name__ == '__main__':
     app.run(debug=True)
