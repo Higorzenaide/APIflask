@@ -164,4 +164,5 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             print(f'Erro {error}')
-            return jsonify({"error": f"Erro no banco de dados: {str(e)}"}), 500
+            return {"error": "Erro no banco de dados:"}, 500
+        return {"Sucess": "Colaborador cadastrado com sucesso:"},200
