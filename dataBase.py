@@ -107,8 +107,6 @@ class BancoDeDados:
                             "data_agendamento": data,
                             "hora_inicio": horaInicio,
                             "hora_fim": horaFim,
-                            "id_gestor": id,
-                            "Gestor": gestor
                         }).eq("id",id).execute()
             except Exception as e:
                 error = e
