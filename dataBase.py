@@ -71,6 +71,17 @@ class BancoDeDados:
         retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
 
         if retornoFuncao == True:
+            try:
+                data, count = self.client.table('sala_de_reuniao').insert({
+                            "data_agendamento": data,
+                            "hora_inicio": horaInicio,
+                            "hora_fim": horaFim,
+                            "id_gestor": id,
+                            "Gestor": gestor
+                        }).execute()
+            except Exception as e:
+                error = e
+                return{"error":"Ocorreu um erro ao tentar realizar um cadastro no banco de dados","erro apresentado": {error}}
             return {"sucess": "Agendado com sucesso!"}, 200
         else:
             return {"error": "Conflitos de horários!",
