@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 from supabase import create_client
+from funcoes import verificarConflitos
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -47,7 +48,7 @@ class BancoDeDados:
 
     def visualizarAgendamentos(self, data):
         try:
-            response, data = self.client.table('sala_de_reuniao').select('data_agendamento', 'hora_inicio', 'hora_fim', 'Gestor', 'created_at').eq('data_agendamento', data).execute()
+            response, data = self.client.table('sala_de_reuniao').select('data_agendamento', 'hora_inicio', 'hora_fim', 'Gestor', 'created_at','id_gestor').eq('data_agendamento', data).execute()
             # Converter a resposta para um DataFrame do pandas
             response_string = response[1]
             resposta = json.loads(json.dumps(response_string))
@@ -58,5 +59,18 @@ class BancoDeDados:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
             
-    def efetuarAgendamento(self,data,horaInicio,horaFim):
-         pass
+    def efetuarAgendamento(self,data,horaInicio,horaFim,id,gestor):
+        retorno = self.visualizarAgendamentos(data)
+
+        dados_de_novo_agendamento = {"data_agendamento" : [data],
+                 "hora_inicio":[horaInicio],
+                 "hora_fim":[horaFim],
+                 "id": [id],
+                 "Gestor":[gestor]}
+        
+        retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
+        
+        if retornoFuncao:
+            return {"Agendado com sucesso"}
+        else:
+            return {"Conflito de horarios"}

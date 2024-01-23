@@ -1,3 +1,22 @@
-def hello():
-    print("Chamei a função")
-    return 'Hello world'
+import pandas as pd
+
+def verificarConflitos(df01,df02):
+    id_gestor = df02["id"]
+    nova_hora_inicio = df02["hora_inicio"]
+    nova_hora_fim = df02["hora_fim"]
+    df = pd.DataFrame(df01)
+    
+    df_filtrado = df.loc[["id_gestor"] != id_gestor]
+    lista_de_hora_inicio_ja_agendada = df_filtrado["hora_inicio"].tolist()
+    lista_de_hora_fim_ja_agendada = df_filtrado["hora_fim"].tolist()
+
+    for hora_inicio_ja_agendada, hora_fim_ja_agendada in zip(lista_de_hora_inicio_ja_agendada,lista_de_hora_fim_ja_agendada):
+        if (
+            (nova_hora_inicio >= hora_inicio_ja_agendada and nova_hora_inicio <= hora_fim_ja_agendada) or 
+            (nova_hora_fim >= hora_inicio_ja_agendada and nova_hora_fim <= hora_fim_ja_agendada) or
+            (nova_hora_inicio <= hora_inicio_ja_agendada and nova_hora_fim >= hora_fim_ja_agendada)
+            ):
+            print("Conflito detectado! Horário já agendado.")
+            return False
+        else:
+            return True
