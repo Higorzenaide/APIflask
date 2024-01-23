@@ -90,7 +90,6 @@ class BancoDeDados:
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
         retornoClasse = self.visualizarAgendamentos(dataAgendamento)
-
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
@@ -138,3 +137,29 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
+
+    def cadastrarColaborador(self,dados):
+        nome = dados["nome"]
+        cpf = dados["cpf"]
+        nome_smart = dados["nome_smart"]
+        cargo = dados["cargo"]
+        data_nascimento = dados["data_nascimento"]
+        telefone_pessoal = dados["telefone_pessoal"]
+        horario_expediente = dados["horario_expediente"]
+        regional = dados["regional"]
+        data_admissao = dados["data_admissao"]
+        coordenacao = dados["coordenacao"]
+        id_gestor = dados["id_gestor"]
+
+        try:
+             response, count = self.client.table('funcionarios').insert({
+                                                                            "cpf":cpf,"nome":nome,
+                                                                            "nome_smartOmini":nome_smart,
+                                                                            "cargo":cargo,"data_nascimento":data_nascimento,
+                                                                            "telefone_pessoal":telefone_pessoal,
+                                                                            "horario_expediente":horario_expediente,
+                                                                            "regional":regional,"data_admissao":data_admissao,
+                                                                            "coordenacao":coordenacao,"id_gestor":id_gestor
+                                                                        }).execute()
+        except Exception as e:
+            return False

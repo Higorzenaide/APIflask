@@ -62,7 +62,7 @@ def excluirAgendamento():
     retorno = instanciaBanco.excluirAgendamento(id)
     return jsonify(retorno)
 
-@app.route('/VisualizarParaEditar',methods = ['POST'])
+@app.route('/VisualizarParaEditar',methods = ['GET'])
 def VisualizarParaEditar():
     data = request.json
     id = data.get("id")
@@ -70,6 +70,38 @@ def VisualizarParaEditar():
     instanciarBanco = BancoDeDados()
     retorno = instanciarBanco.visualizarParaEditar(data,id)
     return jsonify(retorno)
+
+
+@app.route('/CadastrarColaborador', methods = ['POST'])
+def cadastrarColaborador():
+    data = request.json
+    cpf = data.get("cpf")
+    nome = data.get("nome")
+    nome_smartOmini = data.get("nome_smartOmini")
+    cargo = data.get("cargo")
+    data_nascimento = data.get("data_nascimento")
+    telefone_pessoal = data.get("telefone_pessoal")
+    horario_expediente = data.get("horario_expediente")
+    regional = data.get("regional")
+    data_admissao = data.get("data_admissao")
+    coordenacao = data.get("coordenacao")
+    id_gestor = data.get("id_gestor")
+
+    dados = {"cpf":cpf,
+             "nome":nome,
+             "nome_smart":nome_smartOmini,
+             "cargo":cargo,
+             "data_nascimento":data_nascimento,
+             "telefone_pessoal":telefone_pessoal,
+             "horario_expediente":horario_expediente,
+             "regional":regional,
+             "data_admissao":data_admissao,
+             "coordenacao":coordenacao,
+             "id_gestor":id_gestor}
+    
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.cadastrarColaborador(dados)
+    return retorno
 
 if __name__ == '__main__':
     app.run(debug=True)
