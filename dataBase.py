@@ -119,3 +119,10 @@ class BancoDeDados:
             return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],
                     "horario_fim": retornoFuncao["horario_fim"]},400
+    
+    def excluirAgendamento(self,id):
+        try:
+            data,count = self.client.table('sala_de_reuniao').delete().eq("id",id).execute()
+        except Exception as e:
+             return {"error": "ocorreu algum erro inesperado"},400
+        return {"sucess": "Agendamento excluido com sucesso"},200
