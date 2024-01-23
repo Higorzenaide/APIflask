@@ -42,5 +42,18 @@ def fazerAgendamento():
     retorno = instanciarBanco.efetuarAgendamento(dataAgendamento,horaInicio,horaFim,id,gestor)
     return jsonify(retorno)
 
+
+@app.route('/EditarAgendamento',methods = ['POST'])
+def editarAgendamento():
+    data = request.json
+    dataAgendamento = data.get("data_agendamento")
+    horaInicio = data.get("hora_inicio")
+    horaFim = data.get("hora_fim")
+    id = data.get("id")
+    gestor = data.get("Gestor")
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.editarAgendamento(dataAgendamento,horaInicio,horaFim,id,gestor)
+    return jsonify(retorno)
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -87,3 +87,31 @@ class BancoDeDados:
             return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],
                     "horario_fim": retornoFuncao["horario_fim"]},400
+
+    def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
+        novoAgendamentoEditado = {
+             "data_agendamento":dataAgendamento,
+             "hora_inicio":horaInicio,
+             "hora_fim":horaInicio,
+             "id": id,
+             "Gestor":gestor
+        }
+        retornoClasse = self.visualizarAgendamentos(dataAgendamento)
+        retornoFuncao = verificarConflitos(retornoClasse,novoAgendamentoEditado)
+        if retornoFuncao == True:
+            try:
+                data, count = self.client.table('sala_de_reuniao').update({
+                            "data_agendamento": data,
+                            "hora_inicio": horaInicio,
+                            "hora_fim": horaFim,
+                            "id_gestor": id,
+                            "Gestor": gestor
+                        }).eq("id_gestor",id).execute()
+            except Exception as e:
+                error = e
+                return{"error":"Ocorreu um erro ao tentar realizar um cadastro no banco de dados","erro apresentado": {error}}
+            return {"sucess": "Editado com sucesso!"}, 200
+        else:
+            return {"error": "Conflitos de horários!",
+                    "horario_inicio": retornoFuncao["horario_inicio"],
+                    "horario_fim": retornoFuncao["horario_fim"]},400
