@@ -32,7 +32,7 @@ def verificarConflitos(df01,df02):
             return horario
         elif nova_hora_inicio <= hora_inicio_ja_agendada and nova_hora_fim >= hora_fim_ja_agendada:
             horario = {"horario_inicio":hora_inicio_ja_agendada,
-                       "horario_fim": hora_fim_ja_agendada}
+                       "horario_fim ": hora_fim_ja_agendada}
             return horario
         else:
             return True
