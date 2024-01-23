@@ -90,7 +90,7 @@ class BancoDeDados:
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
         retornoClasse = self.visualizarAgendamentos(dataAgendamento)
-        
+
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
@@ -112,7 +112,10 @@ class BancoDeDados:
                         }).eq("id_gestor",id).execute()
             except Exception as e:
                 error = e
-                return{"error":"Ocorreu um erro ao tentar realizar um cadastro no banco de dados","erro apresentado": {error}}
+                return {
+                            "error": "Ocorreu um erro ao tentar realizar um cadastro no banco de dados",
+                            "erro_apresentado": list(error)
+                        }
             return {"sucess": "Editado com sucesso!"}, 200
         else:
             return {"error": "Conflitos de horários!",
