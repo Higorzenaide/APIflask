@@ -132,6 +132,5 @@ def visualizarFeedbacks():
     retorno = instaciarBanco.visualizarFeedbacks(id)
     return jsonify(retorno)
 
-
 if __name__ == '__main__':
     app.run(debug=True)

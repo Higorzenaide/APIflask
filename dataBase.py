@@ -23,6 +23,7 @@ class BancoDeDados:
             return response_string
         except Exception as e:
             error_msg = str(e)
+            print(e)
             return {'Ocorreu um erro inesperado, tente novamente, ou contate os administradores.', error_msg},500
     
     def cadastrar(self, nome, email, matricula, senha):
@@ -182,7 +183,7 @@ class BancoDeDados:
                                                                         "id_gestor":id_gestor,
                                                                         "Nome_colaborador":nomeColaborador
                                                                     }).execute()
-            return {"Sucess": "Inserido no banco de dados com sucesso!"}
+            return {"Sucess": "Inserido no banco de dados com sucesso!"},200
         except Exception as e:
             error = str(e)
             return {f'error': f'{error}'}
