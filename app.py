@@ -124,5 +124,14 @@ def inserirFeedback():
     retorno = instaciarBanco.inserirFeedback(dadosFeddback)
     return jsonify(retorno)
 
+@app.route('/VisualizarFeedbacks', methods = ['GET'])
+def visualizarFeedbacks():
+    data = request.json
+    id = data.get("id")
+    instaciarBanco = BancoDeDados()
+    retorno = instaciarBanco.visualizarFeedbacks(id)
+    return jsonify(retorno)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

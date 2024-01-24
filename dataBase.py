@@ -186,3 +186,13 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             return {f'error': f'{error}'}
+        
+    def visualizarFeedbacks(self,id):
+        try:
+            response, count = self.client.table("view_feedbacks").select("data_inserida","motivo_macro","motivo","nome_colaborador","nome_supervisor").eq("id_gestor",id).execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            return resposta
+        except Exception as e:
+            error = str(e)
+            return {f'error':f'{error}'}
