@@ -166,3 +166,23 @@ class BancoDeDados:
             print(f'Erro {error}')
             return {"error": "Erro no banco de dados:"}, 500
         return {"Sucess": "Colaborador cadastrado com sucesso:"},200
+    
+    def inserirFeedback(self,dados):
+        motivo_macro = dados["motivo_macro"]
+        motivoFeedback = dados["motivoFeedback"]
+        nomeColaborador = dados["nomeColaborador"]
+        id_gestor = dados["id_gestor"]
+        pontos_abordados = dados["pontos_abordados"]
+
+        try:
+            response , count = self.client.table("feedbacks").insert({
+                                                                        "motivo_macro":motivo_macro,
+                                                                        "motivo":motivoFeedback,
+                                                                        "texto_livre":pontos_abordados,
+                                                                        "id_gestor":id_gestor,
+                                                                        "Nome_colaborador":nomeColaborador
+                                                                    }).execute()
+            return {"Sucess": "Inserido no banco de dados com sucesso!"}
+        except Exception as e:
+            error = str(e)
+            return {f'error': f'{error}'}

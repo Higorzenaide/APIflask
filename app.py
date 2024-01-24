@@ -103,5 +103,26 @@ def cadastrarColaborador():
     retorno = instanciarBanco.cadastrarColaborador(dados)
     return jsonify(retorno)
 
+@app.route('/InserirFeedback', methods = ['POST'])
+def inserirFeedback():
+    data = request.json
+    motivoMacro = data.get("motivo_macro")
+    motivoFeedback = data.get("motivo")
+    nomeColaborador = data.get("Nome_colaborador")
+    id_gestor = data.get("id_gestor")
+    pontos_abordados = data.get("pontos")  
+
+    dadosFeddback = {
+        "motivo_macro":motivoMacro,
+        "motivoFeedback":motivoFeedback,
+        "nomeColaborador":nomeColaborador,
+        "id_gestor":id_gestor,
+        "pontos_abordados":pontos_abordados
+    }
+
+    instaciarBanco = BancoDeDados()
+    retorno = instaciarBanco.inserirFeedback(dadosFeddback)
+    return jsonify(retorno)
+
 if __name__ == '__main__':
     app.run(debug=True)
