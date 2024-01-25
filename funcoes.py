@@ -32,7 +32,7 @@ def verificarConflitosEntreOProprioUser(df01,df02):
     nova_hora_fim = df02["hora_fim"][0]
     df = pd.DataFrame(df01)
     
-    df_filtrado = df.loc[df["id_gestor"] != id_gestor]
+    df_filtrado = df.loc[df["id_gestor"] == id_gestor]
     lista_de_hora_inicio_ja_agendada = df_filtrado["hora_inicio"].tolist()
     lista_de_hora_fim_ja_agendada = df_filtrado["hora_fim"].tolist()
 
