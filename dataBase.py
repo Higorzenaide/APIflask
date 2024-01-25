@@ -71,7 +71,8 @@ class BancoDeDados:
         
         retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
         retornoFuncaoProprioUser = verificarConflitosEntreOProprioUser(retorno,dados_de_novo_agendamento)
-        if retornoFuncao == True:
+        
+        if retornoFuncao == True or retornoFuncao == None:
             if retornoFuncaoProprioUser == True:
                 try:
                     data, count = self.client.table('sala_de_reuniao').insert({
@@ -87,8 +88,8 @@ class BancoDeDados:
                 return {"sucess": "Agendado com sucesso!"}, 200
             else:
                 return {"error": "Conflitos de horários entre o próprio usuário!",
-                    "horario_inicio": retornoFuncao["horario_inicio"],
-                    "horario_fim": retornoFuncao["horario_fim"]},400
+                    "horario_inicio": retornoFuncaoProprioUser["horario_inicio"],
+                    "horario_fim": retornoFuncaoProprioUser["horario_fim"]},400
         else:
             return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],

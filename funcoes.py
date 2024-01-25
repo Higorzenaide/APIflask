@@ -1,6 +1,9 @@
 import pandas as pd
 
 def verificarConflitos(df01,df02):
+    if 'error' in df01:
+        return True
+    
     id_gestor = df02["id"][0]
     nova_hora_inicio = df02["hora_inicio"][0]
     nova_hora_fim = df02["hora_fim"][0]
@@ -27,6 +30,9 @@ def verificarConflitos(df01,df02):
             return True
 
 def verificarConflitosEntreOProprioUser(df01,df02):
+    if 'error' in df01:
+        return True
+    
     id_gestor = df02["id"][0]
     nova_hora_inicio = df02["hora_inicio"][0]
     nova_hora_fim = df02["hora_fim"][0]
