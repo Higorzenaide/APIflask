@@ -41,6 +41,10 @@ def verificarConflitosEntreOProprioUser(df01,df02):
     df_filtrado = df.loc[df["id_gestor"] == id_gestor]
     lista_de_hora_inicio_ja_agendada = df_filtrado["hora_inicio"].tolist()
     lista_de_hora_fim_ja_agendada = df_filtrado["hora_fim"].tolist()
+    
+    print(df_filtrado)
+    print(lista_de_hora_inicio_ja_agendada)
+    print(lista_de_hora_fim_ja_agendada)
 
     for hora_inicio_ja_agendada, hora_fim_ja_agendada in zip(lista_de_hora_inicio_ja_agendada,lista_de_hora_fim_ja_agendada):
         if nova_hora_inicio >= hora_inicio_ja_agendada and nova_hora_inicio <= hora_fim_ja_agendada:
