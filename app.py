@@ -50,8 +50,9 @@ def editarAgendamento():
     horaFim = data.get("hora_fim")
     id = data.get("id")
     gestor = data.get("Gestor")
+    id_gestor = data.get("id_gestor")
     instanciarBanco = BancoDeDados()
-    retorno = instanciarBanco.editarAgendamento(dataAgendamento,horaInicio,horaFim,id,gestor)
+    retorno = instanciarBanco.editarAgendamento(dataAgendamento,horaInicio,horaFim,id,gestor,id_gestor)
     return jsonify(retorno)
 
 @app.route('/ExcluirAgendamento', methods = ['POST'])
