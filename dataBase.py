@@ -95,7 +95,7 @@ class BancoDeDados:
                     "horario_fim": retornoFuncao["horario_fim"]},400
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
-        retornoClasse = self.visualizarParaEditar(data,id)
+        retornoClasse = self.visualizarParaEditar(dataAgendamento,id)
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
