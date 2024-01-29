@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 from supabase import create_client
-from funcoes import verificarConflitos,verificarConflitosEntreOProprioUser
+from funcoes import verificarConflitos,verificarConflitosEntreOProprioUser,verificarConflitosEntreOpropriouserParaEditar
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -59,7 +59,7 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             return {"error": f'Ocorreu algum erro: {error}'}
-            
+
     def efetuarAgendamento(self,data,horaInicio,horaFim,id,gestor):
         retorno = self.visualizarAgendamentos(data)
 
@@ -71,7 +71,6 @@ class BancoDeDados:
         
         retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
         retornoFuncaoProprioUser = verificarConflitosEntreOProprioUser(retorno,dados_de_novo_agendamento)
-        
         if retornoFuncao == True or retornoFuncao == None:
             if retornoFuncaoProprioUser == True:
                 try:
@@ -96,7 +95,7 @@ class BancoDeDados:
                     "horario_fim": retornoFuncao["horario_fim"]},400
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor):
-        retornoClasse = self.visualizarAgendamentos(dataAgendamento)
+        retornoClasse = self.visualizarParaEditar(data,id)
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
@@ -106,21 +105,26 @@ class BancoDeDados:
                                 }
         
         retornoFuncao = verificarConflitos(retornoClasse,novoAgendamentoEditado)
-
+        retornouser = verificarConflitosEntreOpropriouserParaEditar(retornoClasse,novoAgendamentoEditado)
         if retornoFuncao == True:
-            try:
-                data, count = self.client.table('sala_de_reuniao').update({
-                            "data_agendamento": dataAgendamento,
-                            "hora_inicio": horaInicio,
-                            "hora_fim": horaFim,
-                        }).eq("id",id).execute()
-            except Exception as e:
-                error = e
-                return {
-                            "error": "Ocorreu um erro ao tentar realizar um cadastro no banco de dados",
-                            "erro_apresentado": list(error)
-                        }
-            return {"sucess": "Editado com sucesso!"}, 200
+            if retornouser == True:
+                try:
+                    data, count = self.client.table('sala_de_reuniao').update({
+                                "data_agendamento": dataAgendamento,
+                                "hora_inicio": horaInicio,
+                                "hora_fim": horaFim,
+                            }).eq("id",id).execute()
+                except Exception as e:
+                    error = e
+                    return {
+                                "error": "Ocorreu um erro ao tentar realizar um cadastro no banco de dados",
+                                "erro_apresentado": list(error)
+                            }
+                return {"sucess": "Editado com sucesso!"}, 200
+            else:
+                return {"error": "Conflitos de horários entre o próprio usuário!",
+                    "horario_inicio": retornouser["horario_inicio"],
+                    "horario_fim": retornouser["horario_fim"]},400
         else:
             return {"error": "Conflitos de horários!",
                     "horario_inicio": retornoFuncao["horario_inicio"],

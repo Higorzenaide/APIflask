@@ -68,3 +68,43 @@ def verificarConflitosEntreOProprioUser(df01,df02):
             return horario
         else:
             return True
+
+def verificarConflitosEntreOpropriouserParaEditar(agendamentos_ja_efetuados,novo_agendamento):
+    if 'error' in agendamentos_ja_efetuados:
+        return True
+    
+    if novo_agendamento == [] or novo_agendamento == None or novo_agendamento == '':
+        return True
+    
+
+    id_agendamento = novo_agendamento["id"][0]
+    nova_hora_inicio = novo_agendamento["hora_inicio"][0]
+    nova_hora_fim = novo_agendamento["hora_fim"][0]
+    df = pd.DataFrame(agendamentos_ja_efetuados)
+
+    print("Passou por aqui")
+    df_filtrado = df.loc[df["id"] != id_agendamento]
+    if df_filtrado.empty:
+        return True  # Não há agendamentos para esse gestor
+    print("Aqui não")
+    lista_de_hora_inicio_ja_agendada = df_filtrado["hora_inicio"].tolist()
+    lista_de_hora_fim_ja_agendada = df_filtrado["hora_fim"].tolist()
+
+    print(lista_de_hora_inicio_ja_agendada)
+    print(lista_de_hora_fim_ja_agendada)
+
+    for hora_inicio_ja_agendada, hora_fim_ja_agendada in zip(lista_de_hora_inicio_ja_agendada,lista_de_hora_fim_ja_agendada):
+        if nova_hora_inicio >= hora_inicio_ja_agendada and nova_hora_inicio <= hora_fim_ja_agendada:
+            horario = {"horario_inicio":hora_inicio_ja_agendada,
+                       "horario_fim": hora_fim_ja_agendada}
+            return horario
+        elif nova_hora_fim >= hora_inicio_ja_agendada and nova_hora_fim <= hora_fim_ja_agendada:
+            horario = {"horario_inicio":hora_inicio_ja_agendada,
+                       "horario_fim": hora_fim_ja_agendada}
+            return horario
+        elif nova_hora_inicio <= hora_inicio_ja_agendada and nova_hora_fim >= hora_fim_ja_agendada:
+            horario = {"horario_inicio":hora_inicio_ja_agendada,
+                       "horario_fim ": hora_fim_ja_agendada}
+            return horario
+        else:
+            return True
