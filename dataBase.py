@@ -96,6 +96,7 @@ class BancoDeDados:
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor,id_gestor):
         retorno = self.visualizarAgendamentos(dataAgendamento)
+        
         print(f'Retorno dos já agendados{retorno}')
         retornoClasse = self.visualizarParaEditar(dataAgendamento,id_gestor)
         
