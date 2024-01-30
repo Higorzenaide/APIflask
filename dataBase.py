@@ -96,7 +96,7 @@ class BancoDeDados:
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor,id_gestor):
         retorno = self.visualizarAgendamentos(dataAgendamento)
-        
+        print(f'Retorno dos já agendados{retorno}')
         retornoClasse = self.visualizarParaEditar(dataAgendamento,id_gestor)
         
         novoAgendamentoEditado = {
@@ -107,8 +107,15 @@ class BancoDeDados:
                                     "Gestor":[gestor],
                                     "id_gestor":[id_gestor]
                                 }
+        novoAgendamentoEditado02 = {
+                                    "data_agendamento":[dataAgendamento],
+                                    "hora_inicio":[horaInicio],
+                                    "hora_fim":[horaInicio],
+                                    "Gestor":[gestor],
+                                    "id":[id_gestor]
+                                }
         
-        retornoFuncao = verificarConflitos(retorno,novoAgendamentoEditado)
+        retornoFuncao = verificarConflitos(retorno,novoAgendamentoEditado02)
         retornouser = verificarConflitosEntreOpropriouserParaEditar(retornoClasse,novoAgendamentoEditado)
         
         if retornoFuncao == True:
