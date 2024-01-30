@@ -79,22 +79,32 @@ def verificarConflitosEntreOProprioUser(df01,df02):
     print(lista_de_hora_fim_ja_agendada)
 
     for hora_inicio_ja_agendada, hora_fim_ja_agendada in zip(lista_de_hora_inicio_ja_agendada,lista_de_hora_fim_ja_agendada):
+        # hora_inicio_ja_agendada = pd.to_datetime(hora_inicio_ja_agendada)
+        # hora_fim_ja_agendada = pd.to_datetime(hora_fim_ja_agendada)
+        # nova_hora_inicio = pd.to_datetime(nova_hora_inicio)
+        # nova_hora_fim = pd.to_datetime(nova_hora_fim)
+
         if nova_hora_inicio >= hora_inicio_ja_agendada and nova_hora_inicio <= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO PRIMEIRO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim": hora_fim_ja_agendada}
             return horario
         elif nova_hora_fim >= hora_inicio_ja_agendada and nova_hora_fim <= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO SEGUNDO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim": hora_fim_ja_agendada}
             return horario
         elif nova_hora_inicio <= hora_inicio_ja_agendada and nova_hora_fim >= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO TERCEIRO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim ": hora_fim_ja_agendada}
             return horario
-        else:
-            return True
+        
+    print(F'-----------RETORNOU-----------------')
+    return True
 
 def verificarConflitosEntreOpropriouserParaEditar(agendamentos_ja_efetuados,novo_agendamento):
+    print("----------------ESTOU DENTRO DE VERIFICAR CONFLITOS DO PRÓPRIO USER---------------------")
     if 'error' in agendamentos_ja_efetuados:
         return True
     
@@ -120,17 +130,26 @@ def verificarConflitosEntreOpropriouserParaEditar(agendamentos_ja_efetuados,novo
     print(f'--------------------------------------------------------------{lista_de_hora_fim_ja_agendada}')
 
     for hora_inicio_ja_agendada, hora_fim_ja_agendada in zip(lista_de_hora_inicio_ja_agendada,lista_de_hora_fim_ja_agendada):
+        # hora_inicio_ja_agendada = pd.to_datetime(hora_inicio_ja_agendada)
+        # hora_fim_ja_agendada = pd.to_datetime(hora_fim_ja_agendada)
+        # nova_hora_inicio = pd.to_datetime(nova_hora_inicio)
+        # nova_hora_fim = pd.to_datetime(nova_hora_fim)
+
         if nova_hora_inicio >= hora_inicio_ja_agendada and nova_hora_inicio <= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO PRIMEIRO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim": hora_fim_ja_agendada}
             return horario
         elif nova_hora_fim >= hora_inicio_ja_agendada and nova_hora_fim <= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO SEGUNDO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim": hora_fim_ja_agendada}
             return horario
         elif nova_hora_inicio <= hora_inicio_ja_agendada and nova_hora_fim >= hora_fim_ja_agendada:
+            print(F'-----------ENTROU NO TERCEIRO-----------------')
             horario = {"horario_inicio":hora_inicio_ja_agendada,
                        "horario_fim ": hora_fim_ja_agendada}
             return horario
-        else:
-            return True
+        
+    print(F'-----------RETORNOU-----------------')
+    return True
