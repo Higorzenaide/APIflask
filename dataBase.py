@@ -96,7 +96,7 @@ class BancoDeDados:
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor,id_gestor):
         retorno = self.visualizarAgendamentos(dataAgendamento)
-
+        
         retornoClasse = self.visualizarParaEditar(dataAgendamento,id_gestor)
         
         novoAgendamentoEditado = {
@@ -105,6 +105,7 @@ class BancoDeDados:
                                     "hora_fim":[horaInicio],
                                     "id": [id],
                                     "Gestor":[gestor],
+                                    "id_gestor":[id_gestor]
                                 }
         
         retornoFuncao = verificarConflitos(retorno,novoAgendamentoEditado)
