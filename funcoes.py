@@ -82,7 +82,7 @@ def verificarConflitosEntreOpropriouserParaEditar(agendamentos_ja_efetuados,novo
     nova_hora_inicio = novo_agendamento["hora_inicio"][0]
     nova_hora_fim = novo_agendamento["hora_fim"][0]
     df = pd.DataFrame(agendamentos_ja_efetuados)
-    print(f'Novo agendamento {id_agendamento}{nova_hora_inicio}{nova_hora_fim}')
+    print(f'Novo agendamento id:{id_agendamento}, hora_inicio:{nova_hora_inicio}, hora_fim:{nova_hora_fim}')
     print("Passou por aqui")
     df_filtrado = df.loc[df["id"] != id_agendamento]
     if df_filtrado.empty:
