@@ -4,7 +4,7 @@ def verificarConflitos(df01,df02):
     if 'error' in df01:
         return True
     
-    id_gestor = df02["id"][0]
+    id_gestor = df02["id_gestor"][0]
     nova_hora_inicio = df02["hora_inicio"][0]
     nova_hora_fim = df02["hora_fim"][0]
     df = pd.DataFrame(df01)
