@@ -102,7 +102,7 @@ class BancoDeDados:
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
-                                    "hora_fim":[horaInicio],
+                                    "hora_fim":[horaFim],
                                     "id": [id],
                                     "Gestor":[gestor],
                                     "id_gestor":[id_gestor]
@@ -110,7 +110,7 @@ class BancoDeDados:
         novoAgendamentoEditado02 = {
                                     "data_agendamento":[dataAgendamento],
                                     "hora_inicio":[horaInicio],
-                                    "hora_fim":[horaInicio],
+                                    "hora_fim":[horaFim],
                                     "Gestor":[gestor],
                                     "id":[id_gestor]
                                 }
