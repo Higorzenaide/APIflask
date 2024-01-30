@@ -61,7 +61,7 @@ class BancoDeDados:
             return {"error": f'Ocorreu algum erro: {error}'}
 
     def efetuarAgendamento(self,data,horaInicio,horaFim,id,gestor):
-        retorno = self.visualizarAgendamentos(data)
+        AgendamentosJaexistentes = self.visualizarAgendamentos(data)
 
         dados_de_novo_agendamento = {"data_agendamento" : [data],
                  "hora_inicio":[horaInicio],
@@ -69,8 +69,8 @@ class BancoDeDados:
                  "id": [id],
                  "Gestor":[gestor]}
         
-        retornoFuncao = verificarConflitos(retorno,dados_de_novo_agendamento)
-        retornoFuncaoProprioUser = verificarConflitosEntreOProprioUser(retorno,dados_de_novo_agendamento)
+        retornoFuncao = verificarConflitos(AgendamentosJaexistentes,dados_de_novo_agendamento)
+        retornoFuncaoProprioUser = verificarConflitosEntreOProprioUser(AgendamentosJaexistentes,dados_de_novo_agendamento)
         if retornoFuncao == True or retornoFuncao == None:
             if retornoFuncaoProprioUser == True:
                 try:
