@@ -49,6 +49,7 @@ def editarAgendamento():
     horaInicio = data.get("hora_inicio")
     horaFim = data.get("hora_fim")
     id = data.get("id")
+    id = int(id)
     gestor = data.get("Gestor")
     id_gestor = data.get("id_gestor")
     instanciarBanco = BancoDeDados()
