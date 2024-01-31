@@ -95,10 +95,13 @@ class BancoDeDados:
                     "horario_fim": retornoFuncao["horario_fim"]},400
 
     def editarAgendamento(self,dataAgendamento,horaInicio,horaFim,id,gestor,id_gestor):
-        retorno = self.visualizarAgendamentos(dataAgendamento)
+        print(f'Estou dentro de Editar Agendamento')
         
+        retorno = self.visualizarAgendamentos(dataAgendamento)
         print(f'Retorno dos já agendados{retorno}')
+        
         retornoClasse = self.visualizarParaEditar(dataAgendamento,id_gestor)
+        print(f'Retorno visualizar para Editar {retornoClasse}')
         
         novoAgendamentoEditado = {
                                     "data_agendamento":[dataAgendamento],
@@ -116,19 +119,28 @@ class BancoDeDados:
                                     "id":[id_gestor]
                                 }
         
+        print(f'Antes de entrar na função verificar Conflitos entre todos os users')
         retornoFuncao = verificarConflitos(retorno,novoAgendamentoEditado02)
+        print(f'Depois de entrar na função verificar Conflitos entre todos os users')
+        print(f'RETORNO verificar Conflitos entre todos os users: {retornoFuncao}')
+        print(f'Antes de entrar na função verificar verificarConflitosEntreOpropriouserParaEditar')
         retornouser = verificarConflitosEntreOpropriouserParaEditar(retornoClasse,novoAgendamentoEditado)
+        print(f'Depois de entrar na função verificar verificarConflitosEntreOpropriouserParaEditar')
+        print(f'RETORNO verificarConflitosEntreOpropriouserParaEditar: {retornouser}')
         
         if retornoFuncao == True:
             if retornouser == True:
                 try:
+                    print(f'Dentro do Try para efetuar -----------------------UPDATE----------------------')
                     data, count = self.client.table('sala_de_reuniao').update({
                                 "data_agendamento": dataAgendamento,
                                 "hora_inicio": horaInicio,
                                 "hora_fim": horaFim,
                             }).eq("id",id).execute()
+                    print(f'DEU BOM Try para efetuar -----------------------UPDATE----------------------')
                 except Exception as e:
                     error = e
+                    print(f'ERRO Try para efetuar -----------------------UPDATE----------------------')
                     return {
                                 "error": "Ocorreu um erro ao tentar realizar um cadastro no banco de dados",
                                 "erro_apresentado": list(error)

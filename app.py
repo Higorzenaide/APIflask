@@ -73,7 +73,6 @@ def VisualizarParaEditar():
     retorno = instanciarBanco.visualizarParaEditar(data,id)
     return jsonify(retorno)
 
-
 @app.route('/CadastrarColaborador', methods = ['POST'])
 def cadastrarColaborador():
     data = request.json
