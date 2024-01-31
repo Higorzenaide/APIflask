@@ -121,6 +121,18 @@ class BancoDeDados:
         
         print(f'Antes de entrar na função verificar Conflitos entre todos os users')
         retornoFuncao = verificarConflitos(retorno,novoAgendamentoEditado02)
+        
+        if retornoFuncao == True:
+            pass
+        else:
+            print({"error": "Conflitos de horários!",
+                    "horario_inicio": retornoFuncao["horario_inicio"],
+                    "horario_fim": retornoFuncao["horario_fim"]})
+            
+            return {"error": "Conflitos de horários!",
+                    "horario_inicio": retornoFuncao["horario_inicio"],
+                    "horario_fim": retornoFuncao["horario_fim"]},400
+            
         print(f'Depois de entrar na função verificar Conflitos entre todos os users')
         print(f'RETORNO verificar Conflitos entre todos os users: {retornoFuncao}')
         print(f'Antes de entrar na função verificar verificarConflitosEntreOpropriouserParaEditar')
@@ -147,6 +159,10 @@ class BancoDeDados:
                             }
                 return {"sucess": "Editado com sucesso!"}, 200
             else:
+                print({"error": "Conflitos de horários entre o próprio usuário!",
+                    "horario_inicio": retornouser["horario_inicio"],
+                    "horario_fim": retornouser["horario_fim"]})
+                
                 return {"error": "Conflitos de horários entre o próprio usuário!",
                     "horario_inicio": retornouser["horario_inicio"],
                     "horario_fim": retornouser["horario_fim"]},400
