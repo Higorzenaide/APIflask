@@ -156,7 +156,7 @@ def InserirTicketSmart():
     }
 
     instanciarBanco = BancoDeDados()
-    retorno = instanciarBanco.inserirTicketSmart()
+    retorno = instanciarBanco.inserirTicketSmart(dados)
     return jsonify(retorno)
 
 if __name__ == '__main__':
