@@ -136,5 +136,28 @@ def visualizarFeedbacks():
 @app.route('/ManterServicoAtivo', methods = ['POST','GET'])
 def ManterServicoAtivo():
     return jsonify({'status': 'Serviço mantido ativo'})
+
+@app.route('/InserirTicketSmart',methods = ['POST'])
+def InserirTicketSmart():
+    data = request.json()
+    date = data.get("date")
+    num_ticket = data.get("ticket")
+    hora_inicio = data.get("hora_inicio")
+    hora_fim = data.get("hora_fim")
+    normalizado = data.get("normalizado")
+    motivo = data.get("motivo")
+    id_gestor = data.get("id")
+    nome_gestor = data.get("nome_gestor")
+    
+    dados = {
+        "data_incidente":date,"num_ticket":num_ticket,"hora_inicio":hora_inicio,
+        "hora_fim":hora_fim,"motivo":motivo,"normalizado":normalizado,
+        "nome_gestor":nome_gestor,"id_gestor":id_gestor
+    }
+
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.inserirTicketSmart()
+    return jsonify(retorno)
+
 if __name__ == '__main__':
     app.run(debug=True)

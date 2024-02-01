@@ -248,3 +248,22 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             return {f'error':f'{error}'}
+    
+    def inserirTicketSmart(self,dados):
+        data_incidente = dados.ge["date"]
+        num_ticket = dados.get["ticket"]
+        hora_inicio = dados.get["hora_inicio"]
+        hora_fim = dados.get["hora_fim"]
+        normalizado = dados.get["normalizado"]
+        motivo = dados.get["motivo"]
+        id_gestor = dados.get["id"]
+        nome_gestor = dados.get["nome_gestor"]
+        try:
+            response, count = self.client.table('ticket_smart').insert({
+                "data_incidente":data_incidente,"num_ticket":num_ticket,"hora_inicio":hora_inicio,"hora_fim":hora_fim,
+                "normalizado":normalizado,"motivo":motivo,"id_gestor":id_gestor,"nome_gestor":nome_gestor
+            }).execute()
+            return {"sucess":"dados inseridos com sucesso"},200
+        except Exception as e:
+            error = str(e)
+            return{"error":error},400
