@@ -133,5 +133,8 @@ def visualizarFeedbacks():
     retorno = instaciarBanco.visualizarFeedbacks(id)
     return jsonify(retorno)
 
+@app.route('/ManterServicoAtivo', methods = ['POST','GET'])
+def ManterServicoAtivo():
+    return jsonify({'status': 'Serviço mantido ativo'})
 if __name__ == '__main__':
     app.run(debug=True)
