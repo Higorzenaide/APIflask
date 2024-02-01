@@ -250,14 +250,14 @@ class BancoDeDados:
             return {f'error':f'{error}'}
     
     def inserirTicketSmart(self,dados):
-        data_incidente = dados.ge["date"]
-        num_ticket = dados.get["ticket"]
-        hora_inicio = dados.get["hora_inicio"]
-        hora_fim = dados.get["hora_fim"]
-        normalizado = dados.get["normalizado"]
-        motivo = dados.get["motivo"]
-        id_gestor = dados.get["id"]
-        nome_gestor = dados.get["nome_gestor"]
+        data_incidente = dados["date"]
+        num_ticket = dados["ticket"]
+        hora_inicio = dados["hora_inicio"]
+        hora_fim = dados["hora_fim"]
+        normalizado = dados["normalizado"]
+        motivo = dados["motivo"]
+        id_gestor = dados["id"]
+        nome_gestor = dados["nome_gestor"]
         try:
             response, count = self.client.table('ticket_smart').insert({
                 "data_incidente":data_incidente,"num_ticket":num_ticket,"hora_inicio":hora_inicio,"hora_fim":hora_fim,
