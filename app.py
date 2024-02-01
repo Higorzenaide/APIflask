@@ -139,7 +139,7 @@ def ManterServicoAtivo():
 
 @app.route('/InserirTicketSmart',methods = ['POST'])
 def InserirTicketSmart():
-    data = request.json()
+    data = request.json
     date = data.get("date")
     num_ticket = data.get("ticket")
     hora_inicio = data.get("hora_inicio")
