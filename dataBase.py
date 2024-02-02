@@ -270,8 +270,10 @@ class BancoDeDados:
         
     def visualizarTicketsSmart(self,data_inicio,data_fim):
         try:
-            response,count = self.cliente.table('ticket_smart').select('*')\
-            .range('data_incidente',data_inicio,data_fim)\
+            response, count = self.client.table('ticket_smart') \
+            .select('*') \
+            .gte('data_incidente', data_inicio) \
+            .lt('data_incidente', data_fim) \
             .execute()
             response_string = response[1]
             resposta = json.loads(json.dumps(response_string))
