@@ -271,7 +271,7 @@ class BancoDeDados:
     def visualizarTicketsSmart(self,data_inicio,data_fim):
         try:
             response, count = self.client.table('ticket_smart') \
-            .select('*') \
+            .select('data_incidente','hora_fim','hora_inicio','id','motivo','nome_gestor','normalizado','num_ticket') \
             .gte('data_incidente', data_inicio) \
             .lt('data_incidente', data_fim) \
             .execute()
