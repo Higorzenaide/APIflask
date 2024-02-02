@@ -159,5 +159,22 @@ def InserirTicketSmart():
     retorno = instanciarBanco.inserirTicketSmart(dados)
     return jsonify(retorno)
 
+@app.route('/VisualizarTicketsSmart/data_inicio <data_inicio> - data_fim <data_fim>',methods=['GET'])
+def VisualizarTicketsSmart(data_inicio,data_fim):
+    try:
+        data_inicio = datetime.strptime(data_inicio,"%Y-%m-%d").date()
+        data_inicio_str = data_inicio.strftime("%Y-%m-%d")
+    except Exception as e:
+        return jsonify({'error':'data_inicio em formato inválido'})
+    
+    try:
+        data_fim = datetime.strptime(data_fim,"%Y-%m-%d").date()
+        data_fim_str = data_fim.strftime("%Y-%m-%d")
+    except Exception as e:
+        return jsonify({'error':'data_fim em formato inválido'})
+    
+    return jsonify({'sucess':'passou pelos dois trys',f'{data_inicio_str}':f'{data_fim_str}'})
+    
+    
 if __name__ == '__main__':
     app.run(debug=True)

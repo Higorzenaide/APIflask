@@ -267,3 +267,8 @@ class BancoDeDados:
         except Exception as e:
             error = str(e)
             return{"error":error},400
+        
+    def visualizarTicketsSmart(self,data):
+        pass
+            
+                
