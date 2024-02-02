@@ -268,7 +268,16 @@ class BancoDeDados:
             error = str(e)
             return{"error":error},400
         
-    def visualizarTicketsSmart(self,data):
-        pass
+    def visualizarTicketsSmart(self,data_inicio,data_fim):
+        try:
+            response,count = self.cliente.table('ticket_smart').select('*')\
+            .range('data_incidente',data_inicio,data_fim)\
+            .execute()
+            response_string = response[1]
+            resposta = json.loads(json.dumps(response_string))
+            return resposta
+        except Exception as e:
+            erro = str(e)
+            return {'error'f'{erro}'}
             
                 

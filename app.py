@@ -173,7 +173,10 @@ def VisualizarTicketsSmart(data_inicio,data_fim):
     except Exception as e:
         return jsonify({'error':'data_fim em formato inválido'})
     
-    return jsonify({'sucess':'passou pelos dois trys',f'{data_inicio_str}':f'{data_fim_str}'})
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.visualizarTicketsSmart(data_inicio_str,data_fim_str)
+    return jsonify(retorno)
+    
     
     
 if __name__ == '__main__':
