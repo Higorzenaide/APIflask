@@ -278,6 +278,6 @@ class BancoDeDados:
             return resposta
         except Exception as e:
             erro = str(e)
-            return {'error'f'{erro}'}
+            return {'error':f'{erro}'}
             
                 
