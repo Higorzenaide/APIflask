@@ -159,7 +159,7 @@ def InserirTicketSmart():
     retorno = instanciarBanco.inserirTicketSmart(dados)
     return jsonify(retorno)
 
-@app.route('/VisualizarTicketsSmart/data_inicio <data_inicio> - data_fim <data_fim>',methods=['GET'])
+@app.route('/VisualizarTicketsSmart/data_inicio/<data_inicio>/data_fim/<data_fim>',methods=['GET'])
 def VisualizarTicketsSmart(data_inicio,data_fim):
     try:
         data_inicio = datetime.strptime(data_inicio,"%Y-%m-%d").date()
