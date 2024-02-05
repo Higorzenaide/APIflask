@@ -285,7 +285,7 @@ class BancoDeDados:
     
     def editarTicketSmart(self,dados):
         hora_fim = dados["hora_fim"]
-        normalizado = dados["hora_fim"]
+        normalizado = dados["normalizado"]
         id = dados["id"]
         try:
             response, count = self.client.table('ticket_smart').update({
