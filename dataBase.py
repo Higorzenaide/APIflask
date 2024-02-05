@@ -287,11 +287,9 @@ class BancoDeDados:
         hora_fim = dados["hora_fim"]
         normalizado = dados["hora_fim"]
         id = dados["id"]
-        hora_fim = datetime.strptime(hora_fim, "%H:%M:%S").time()
-        hora_inicio_str = hora_fim.strftime("%H:%M:%S")
         try:
             response, count = self.client.table('ticket_smart').update({
-                "hora_fim":hora_inicio_str,"normalizado":normalizado
+                "hora_fim":hora_fim,"normalizado":normalizado
             }).eq("id",id).execute()
             return {"sucess":"dados editados com sucesso"},200
         except Exception as e:
