@@ -178,6 +178,17 @@ def VisualizarTicketsSmart(data_inicio,data_fim):
     return jsonify(retorno)
     
     
-    
+@app.route('/EditarTicketSmart',methods=["POST"])
+def EditarTicketSmart():
+    data = request.json
+    id = data.get("id")
+    hora_fim = data.get("hora_fim")
+    normalizado = data.get("normalizado")
+    dados = {
+        "hora_fim":hora_fim,"normalizado":normalizado,"id":id
+    }
+    instanciarBanco = BancoDeDados()
+    retorno = instanciarBanco.editarTicketSmart(dados)
+    return jsonify(retorno)
 if __name__ == '__main__':
     app.run(debug=True)

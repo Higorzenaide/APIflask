@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
+from datetime import datetime, time
 import json
 from supabase import create_client
 from funcoes import verificarConflitos,verificarConflitosEntreOProprioUser,verificarConflitosEntreOpropriouserParaEditar
@@ -281,5 +282,19 @@ class BancoDeDados:
         except Exception as e:
             erro = str(e)
             return {'error':f'{erro}'}
-            
+    
+    def editarTicketSmart(self,dados):
+        hora_fim = dados["hora_fim"]
+        normalizado = dados["hora_fim"]
+        id = dados["id"]
+        hora_fim = datetime.strptime(hora_fim, "%H:%M:%S").time()
+        hora_inicio_str = hora_fim.strftime("%H:%M:%S")
+        try:
+            response, count = self.client.table('ticket_smart').update({
+                "hora_fim":hora_inicio_str,"normalizado":normalizado
+            }).eq("id",id).execute()
+            return {"sucess":"dados editados com sucesso"},200
+        except Exception as e:
+            error = str(e)
+            return{"error":error},400
                 
